@@ -37,9 +37,9 @@ class Enemy {
     this.radius = 50;
     this.health = 100;
     this.velocity = {
-      x : 0,
-      y : 0
-    }
+      x: 0,
+      y: 0,
+    };
   }
 
   draw() {
@@ -55,7 +55,12 @@ class Enemy {
     c.fillRect(this.position.x, this.position.y - 15, this.width, 10);
 
     c.fillStyle = "green";
-    c.fillRect(this.position.x, this.position.y - 15, this.width * this.health / 100, 10 );
+    c.fillRect(
+      this.position.x,
+      this.position.y - 15,
+      (this.width * this.health) / 100,
+      10
+    );
   }
 
   update() {
@@ -74,19 +79,25 @@ class Enemy {
 
     //this will calculate the angle in radiants
     const angle = Math.atan2(yDistance, xDistance);
-    this.velocity.x = Math.cos(angle)
-    this.velocity.y = Math.sin(angle)
+
+    const speed = 10
 
 
+    this.velocity.x = Math.cos(angle) * speed;
+    this.velocity.y = Math.sin(angle) * speed;
 
     // after we calculate the angle in radiants this will give the speed of x & y, cos for x speed, and sin for y speed
-    this.position.x += Math.cos(angle);
-    this.position.y += Math.sin(angle);
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
 
     // when the position of x and y hits the cordinates in waypoint array, it will change to the next waypoint
+
+    // adjustment was made to be able increase the speed of the targets
     if (
-      Math.round(this.center.x) === Math.round(waypoint.x) &&
-      Math.round(this.center.y) === Math.round(waypoint.y) &&
+      Math.abs(Math.round(this.center.x) - Math.round(waypoint.x)) <
+        Math.abs(this.velocity.x) &&
+      Math.abs(Math.round(this.center.y) - Math.round(waypoint.y)) <
+        Math.abs(this.velocity.y) &&
       this.waypointIndex < waypoints.length - 1
     ) {
       this.waypointIndex++;
