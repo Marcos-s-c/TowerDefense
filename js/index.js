@@ -59,6 +59,7 @@ let enemyCount = 3;
 let hearts = 10;
 let coins = 100;
 
+
 spawnEnemies(enemyCount);
 
 //recursive function
@@ -160,6 +161,9 @@ canvas.addEventListener("click", (event) => {
       })
     );
     activeTile.isOccupied = true;
+    buildings.sort((a, b) => {
+      return a.position.y - b.position.y;
+    });
   }
 });
 

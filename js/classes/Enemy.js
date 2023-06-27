@@ -1,6 +1,12 @@
-class Enemy {
+class Enemy extends Sprite {
   constructor({ position = { x: 0, y: 0 } }) {
-    this.position = position;
+    super({
+      position,
+      imageSrc: "img/orc.png",
+      frames: {
+        max: 7,
+      },
+    });
     this.width = 100;
     this.height = 100;
     this.waypointIndex = 0;
@@ -17,13 +23,7 @@ class Enemy {
   }
 
   draw() {
-    //draw enemy
-    c.fillStyle = "red";
-    // c.fillRect(this.position.x, this.position.y, this.width, this.height);
-    c.beginPath();
-    c.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
-    c.fill();
-
+    super.draw();
     // health bar
     c.fillStyle = "red";
     c.fillRect(this.position.x, this.position.y - 15, this.width, 10);
@@ -39,6 +39,7 @@ class Enemy {
 
   update() {
     this.draw();
+    super.update();
 
     const waypoint = waypoints[this.waypointIndex];
     // this help calculate the distance of the triangle in this case X & Y so we can use it on the angle formula
