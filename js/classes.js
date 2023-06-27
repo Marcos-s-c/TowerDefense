@@ -80,7 +80,7 @@ class Enemy {
     //this will calculate the angle in radiants
     const angle = Math.atan2(yDistance, xDistance);
 
-    const speed = 10
+    const speed = 3
 
 
     this.velocity.x = Math.cos(angle) * speed;
