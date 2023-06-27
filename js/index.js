@@ -72,12 +72,12 @@ function animate() {
 
     if (enemy.position.x > canvas.width) {
       console.log("enemy exit the map");
+
       hearts -= 1;
       enemies.splice(i, 1);
-      console.log(hearts);
+      document.querySelector("#hearts").innerHTML = hearts;
 
       if (hearts === 0) {
-        console.log("game over");
         cancelAnimationFrame(animationId);
         document.querySelector("#gameOver").style.display = "flex";
       }
